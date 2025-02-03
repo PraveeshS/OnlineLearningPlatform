@@ -1,0 +1,141 @@
+{% extends 'instructor/base.html' %}
+
+{% block title %}
+    Content Details
+{% endblock %}
+
+{% block body %}
+    <style>
+        body {
+            background-color:  #e3f2fd;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px auto;
+            max-width: 10000px;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #ffffff, #f8f9fa);
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            width: calc(25% - 15px); 
+            min-height: 140px; 
+            box-sizing: border-box;
+            transition: all 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .card h3 {
+            font-size: 30px; 
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .card p {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+        
+        .card-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: auto;
+        }
+        
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+        
+        
+        @media (max-width: 1024px) {
+            .card {
+                width: calc(33.33% - 15px);  
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .card {
+                width: calc(50% - 15px); 
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .card {
+                width: 100%; 
+            }
+        }
+        
+        .btn {
+            background: #007bff;
+            color: white;
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background: #0056b3;
+            transform: scale(1.05);
+        }
+        
+      
+    </style>
+
+    <div class="card-container">
+        {% if additional_contents %}
+            {% for additional in additional_contents %}
+                <div class="card">
+                    <h3>{{ additional.title }}</h3>
+                    <div class="card-actions">
+                        {% if additional.content_type == 'link' %}
+                            <a href="{{ additional.url }}" target="_blank" class="btn">Open Link</a>
+                        {% elif additional.content_type == 'file' %}
+                            <a href="{{ additional.url }}" download="{{ additional.title }}" class="btn">Download File</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No additional content available.</p>
+        {% endif %}
+    </div>
+{% endblock %}

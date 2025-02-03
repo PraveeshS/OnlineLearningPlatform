@@ -1,0 +1,29 @@
+{% extends "instructor/base.html" %}
+{% block title %}Enrolled Students{% endblock %}
+{% block body %}
+<div class="container mt-5">
+    <h2>Students Enrolled in {{ course.title }}</h2>
+    {% if students %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Student Name</th>
+                <th scope="col">Enrollment Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for enrollment in students %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ enrollment.student.username }}</td>
+                <td>{{ enrollment.enrolled_at }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No students enrolled in this course yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends 'instructor/base.html' %}
+
+{% block title %}Update Course Details{% endblock %}
+
+{% block body %}
+<style>
+    body {
+        background-color: #e3f2fd; 
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        margin: 40px auto;
+        max-width: 700px;
+        padding: 25px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color:  #e3f2fd;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 26px;
+        font-weight: 600;
+        color: #0056b3;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    label {
+        font-weight: 600;
+        margin-bottom: 6px;
+        display: block;
+        color: #003366;
+    }
+
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+        border-color: #004085;
+        outline: none;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    }
+
+    .tag-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 5px;
+    }
+
+    .tag-group .form-check {
+        display: flex;
+        align-items: center;
+    }
+
+    button {
+        padding: 12px 20px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+    .button-group {
+        display: flex;
+        justify-content: center; 
+        gap: 15px;
+        margin-top: 20px;
+    }
+    
+    
+    .btn-primary {
+        background-color: #007bff;
+        color: white;
+        font-weight: 600;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+    
+   
+    .btn-success {
+        background-color: #007bff;
+        color: white;
+    }
+    
+    .btn-success:hover {
+        background-color: #0056b3;
+        transform: scale(1.02); 
+    }
+    
+ 
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        font-weight: 600;
+        text-align: center;
+    }
+    
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        transform: scale(1.05);
+    }
+    
+
+    .text-danger {
+        margin-top: 4px;
+        font-size: 14px;
+    }
+</style>
+
+<div class="container">
+    <h2>Update Course Details for {{ course.title }}</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            {{ form.title.label }}
+            {{ form.title }}
+            {% if form.title.errors %}
+                <div class="text-danger">{{ form.title.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.description.label }}
+            {{ form.description }}
+            {% if form.description.errors %}
+                <div class="text-danger">{{ form.description.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.price.label }}
+            {{ form.price }}
+            {% if form.price.errors %}
+                <div class="text-danger">{{ form.price.errors }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            {{ form.subject.label }}
+            {{ form.subject }}
+            {% if form.subject.errors %}
+                <div class="text-danger">{{ form.subject.errors }}</div>
+            {% endif %}
+        </div>
+
+        {% comment %} <div class="form-group">
+            <label for="id_tags">Tags</label>
+            <div class="tag-group">
+                {% for tag in form.tags %}
+                    <div class="form-check">
+                        {{ tag }} {{ tag.label }}
+                    </div>
+                {% endfor %}
+            </div>
+            {% if form.tags.errors %}
+                <div class="text-danger">{{ form.tags.errors }}</div>
+            {% endif %}
+        </div> {% endcomment %}
+
+        <div class="form-group">
+            {{ form.start_date.label }}
+            {{ form.start_date }}
+            {% if form.start_date.errors %}
+                <div class="text-danger">{{ form.start_date.errors }}</div>
+            {% endif %}
+        </div>
+        <div class="button-group">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'instructorHome' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

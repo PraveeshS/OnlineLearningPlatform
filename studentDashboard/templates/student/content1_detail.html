@@ -1,0 +1,115 @@
+{% extends 'student/base.html' %}
+
+{% block title %}
+    {{ course.title }} Details
+{% endblock %}
+
+{% block body %}
+
+    <style>
+        body {
+            background-color: #e3f2fd;
+            font-family: Arial, sans-serif;
+        }
+
+        h1, h2 {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #495057;
+            font-size: 2rem;
+            margin-top: 30px;
+        }
+
+        /* Card Styling */
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            transition: 0.3s;
+            max-width: 900px;
+            margin: 20px auto;
+            border-left: 6px solid #007bff;
+            position: relative;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .card p {
+            color: #6c757d;
+            font-size: 1rem;
+            text-align: justify; /* Justify alignment */
+            margin: 0 15px;
+        }
+
+        /* Title Button Styling */
+        .title-button {
+            display: block;
+            background: none;
+            border: none;
+            color: #007bff;
+            font-size: 1.6rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .title-button:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .no-content {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #6c757d;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .card { max-width: 90%; padding: 20px; }
+        }
+    </style>
+
+    <h1>{{ course.title }}</h1>
+
+    <!-- Course Description -->
+    <div class="card">
+        <h4>📘 Description</h4>
+        <p>{{ course.description }}</p>
+    </div>
+
+    <!-- Course Contents -->
+    <h2>Contents</h2>
+    {% if contents %}
+        {% for content in contents %}
+            <div class="card">
+                <form action="{% url 'content1_detail' content.id %}">
+                    <button type="submit" class="title-button">{{ content.title }}</button>
+                </form>
+                <p>➤ {{ content.description }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-content">No additional content has been added yet.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,173 @@
+{% extends 'student/base.html' %}
+{% block title %} Student Dashboard {% endblock %}
+{% block body %}
+<head>
+    <style>
+        body {
+            background-color: #e3f2fd;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 12px;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container {
+            width: 60%;
+            margin: 15px auto;
+            
+        }
+
+        .input-group input {
+            width: 80%;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            height:45px;
+        }
+
+        .input-group button {
+            width: 10%;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+            background-color: #007bff;
+            color: white;
+            padding: 8px;
+            font-size: 14px;
+            border: none;
+        }
+
+        .input-group button:hover {
+            background-color: #0056b3;
+        }
+
+        .table-container {
+            width: 70%;
+            margin: 35px auto;
+        }
+
+        .table {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .table thead th {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: 600;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .table tbody td {
+            vertical-align: middle;
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .table tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 14px;
+            text-transform: uppercase;
+            border: none;
+            transition: 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (max-width: 992px) {
+            .search-container {
+                width: 80%;
+            }
+
+            .table-container {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .search-container {
+                width: 100%;
+            }
+
+            .input-group input, .input-group button {
+                font-size: 12px;
+                padding: 6px;
+            }
+
+            .table-container {
+                width: 100%;
+            }
+
+            .table thead th, .table tbody td {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+
+<div class="search-container">
+    <form method="GET" action="{% url 'offeredcourses' %}">
+        <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search by keyword, instructor name, subject, or course name">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </form>
+</div>
+
+<div class="table-container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Course Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Instructor</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in courses %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ c.title }}</td>
+                <td>₹ {{ c.price }}</td>
+                <td>{{ c.instructor }}</td>
+                <td>{{ c.start_date }}</td>
+                <td>
+                    <a href="{% url 'course' c.id %}" target="_blank" class="btn btn-primary">View</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

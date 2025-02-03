@@ -1,0 +1,132 @@
+{% extends 'base.html' %}
+{% block title %}
+  Sign Up  
+{% endblock title %}
+{% block body %}
+
+<style>
+body {
+  background-color: #d0e4f7;
+  font-family: Arial, sans-serif;
+}
+card {
+  max-width: 500px;
+  padding: 25px;
+  margin: auto;
+  background: white;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15); /* Softer shadow */
+  transition: transform 0.3s ease-in-out; /* Smooth hover effect */
+}
+
+.card:hover {
+  transform: scale(1.02); /* Slightly enlarges on hover */
+}
+
+h2 {
+  color: #0056b3;
+  font-size: 1.75rem; /* Slightly smaller heading */
+  font-weight: bold;
+}
+.form-control {
+  font-size: 0.85rem; /* Smaller input fields */
+  padding: 0.75rem 0.8rem;
+}
+.btn-lg {
+  font-size: 0.9rem; /* Smaller button */
+  padding: 0.6rem;
+}
+.text-muted {
+  color: black !important; 
+  font-size:15px;/* "Already have an account?" in black */
+  font-weight: bold;
+}
+.text-danger {
+  color: red !important;
+  font-size:15px; /* "Login here" in red */
+  font-weight: bold;
+}
+.welcome-message {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  color:#0056b3;
+}
+</style>
+    
+<section class="vh-100 d-flex align-items-center">
+  <div class="container my-5">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-md-6 col-lg-5 mb-4">
+        <div class="welcome-message">
+          Welcome to the Online Learning Platform! <br>
+          Empowering Education for Everyone.
+        </div>
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
+          class="img-fluid rounded-3 shadow-sm" alt="Sample image">
+      </div>
+      <div class="col-md-6 col-lg-5">
+        <div class="card p-3 shadow">
+          <h2 class="text-center mb-3">Sign Up</h2>
+          <form action="{% url 'signup' %}" method="post">
+            {% csrf_token %}
+        
+            <!-- Email input -->
+            <div class="form-outline mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" id="email" required class="form-control"
+                    placeholder="Enter your email" name="email" />
+            </div>
+        
+            <!-- Username input -->
+            <div class="form-outline mb-3">
+                <label class="form-label" for="username">Username</label>
+                <input type="text" id="username" required class="form-control"
+                    placeholder="Enter your username" name="username" />
+            </div>
+        
+            <!-- Role Selection -->
+            <div class="form-outline mb-3">
+                <label class="form-label" for="role">Select Role</label>
+                <select name="role" id="role" class="form-control" required>
+                    <option value="student">Student</option>
+                    <option value="instructor">Teacher</option>
+                </select>
+            </div>
+        
+            <!-- Password input -->
+            <div class="form-outline mb-3">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" required class="form-control"
+                    placeholder="Enter password" name="pass1"/>
+            </div>
+        
+            <!-- Confirm Password input -->
+            <div class="form-outline mb-3">
+                <label class="form-label" for="confirm-password">Repeat Password</label>
+                <input type="password" id="confirm-password" required class="form-control"
+                    placeholder="Re-enter password" name="pass2"/>
+            </div>
+        
+            <!-- Submit button -->
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary btn-lg w-100">Sign Up</button>
+            </div>
+
+            <!-- Login Link -->
+            <div class="text-center mt-2">
+              <span class="text-muted">Already have an account? </span>
+              <a href="{% url 'login' %}" class="text-danger">Login here</a>
+            </div>
+
+          </form>
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock body %}

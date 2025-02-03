@@ -1,0 +1,216 @@
+{% extends 'instructor/base.html' %}
+
+{% block title %}
+  Course Details
+{% endblock %}
+
+{% block body %}
+<head>
+    <style>
+        body {
+            background-color: #e3f2fd;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background-color: #e3f2fd;
+            padding: 20px;
+            margin-top:30px
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0056b3;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #0056b3;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        /* Card Styles */
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: white;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Lighter blue card colors */
+        .card-primary { background-color: #007bff; }
+        .card-info { background-color:  #007bff; }
+        .card-success { background-color: #007bff; }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .course-description p {
+            font-size: 1.1rem;
+            color: #333;
+            text-align: center;
+        }
+
+      
+        .btn-custom {
+            font-size: 1rem;
+            padding: 12px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        
+        }
+
+
+        .content-item {
+            background:  #e3f2fd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            width:900px;
+        }
+
+        .content-item:hover {
+            transform: scale(1.02);
+        }
+
+        .content-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .content-title:hover {
+            color: #0056b3;
+        }
+
+        .content-description {
+            font-size: 1rem;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .action-buttons {
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        /* Updated button colors */
+        .btn-sm {
+            font-size: 0.9rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        /* Edit button - lighter blue */
+        .btn-warning {
+            background-color: #007bff;
+            border: none;
+            color: white;
+        }
+        .btn-warning:hover {
+            background-color: #007bff;
+        }
+
+        /* Delete button - deep blue */
+        .btn-danger {
+            background-color:  #007bff;
+            border: none;
+            color: white;
+        }
+        .btn-danger:hover {
+            background-color:  #007bff;
+        }
+
+        /* Add URL button - navy blue */
+        .btn-secondary {
+            background-color:  #007bff;
+            border: none;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color:  #007bff;
+        }
+
+    </style>
+</head>
+
+<div class="container py-4">
+    <h1>{{ course.title | title }}</h1>
+
+    <div class="course-description mb-4">
+        <p>{{ course.description }}</p>
+    </div>
+
+    <div class="row text-center mb-4">
+        <div class="col-md-4">
+            <div class="card card-primary">
+                <h5 class="card-title">Price</h5>
+                <p class="card-text">{{ course.price }}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-info">
+                <h5 class="card-title">Subject</h5>
+                <p class="card-text">{{ course.subject }}</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-success">
+                <h5 class="card-title">Start Date</h5>
+                <p class="card-text">{{ course.start_date }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'add_content' course.id %}" class="btn btn-primary btn-lg btn-custom">Add Content</a>
+    </div>
+
+    <div class="mt-5">
+        <h2 class="text-center" style="color: #007bff;">Course Contents</h2>
+        {% if contents %}
+            <div class="mt-4">
+                {% for content in contents %}
+                    <div class="content-item">
+                        <a href="{% url 'content1_detail' content_id=content.id %}" class="content-title">{{ content.title }}</a>
+                        <p class="content-description">{{ content.description }}</p>
+                        
+                        <div class="action-buttons">
+                            <a href="{% url 'update_content' content.id %}" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="{% url 'delete_content' content.id %}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{% url 'addURLcontent' content.id %}" class="btn btn-secondary btn-sm">Add URL</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center text-muted">No contents have been added yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
